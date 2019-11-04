@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse-pydev version="1.0"?><pydev_project>
+<pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
+<path>/${PROJECT_DIR_NAME}/src</path>
+</pydev_pathproperty>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python interpreter</pydev_property>
+<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
+<path>${pydev}</path>
+<path>${remoteLibs}</path>
+</pydev_pathproperty>
+<pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
+<key>pydev</key>
+<value>C:/Users/Duncan Ellison/Desktop/DEVELOPMENT/OpenDevice/plugins/org.python.pydev.core_7.2.1.201904261721/pysrc</value>
+<key>remoteLibs</key>
+<value>C:/Users/Duncan Ellison/Desktop/DEVELOPMENT/OpenDevice/plugins/com.inhand.networks.core_4.0.0/remote</value>
+</pydev_variables_property>
+</pydev_project>
