@@ -12,6 +12,7 @@ RS485_PORT = '/dev/ttyO3'
 
 
 class CtrlMgmt(object):
+    logger.debug('*** Running CtrlMgmt ***')
     def __init__(self, base, controllers, _pub_callback):
         self.masters = dict()
         self.base = base
@@ -27,6 +28,7 @@ class CtrlMgmt(object):
 
     # Initialize controller communication tasks
     def init_controller(self):
+        logger.debug('*** Running init_controller ***')
         # isright = False
         for k, v in self.controllers.items():
             controller = v
@@ -82,6 +84,7 @@ class CtrlMgmt(object):
                     logger.debug("error %s- Code=%d", exc, exc.get_exception_code())
 
     def _config_timer_handler(self, evt, userdata):
+        logger.debug('*** Running _config_timer_handler ***')
         topic = "InMB/site/info"
         if self._pub_callback(topic, json.dumps(self.siteinfo), 1):
             logger.info("Send registered device information: %s" % self.siteinfo)
@@ -121,6 +124,7 @@ class CtrlMgmt(object):
 
     def register_serial_device(self, protocol, id, description, dev, speed=9600, databit=8, stopbit=1, parity="N",
                                xonxoff="off"):
+        logger.debug('*** Running register_serial_device ***')
         try:
             if dev == '/dev/ttyO1':
                 type = 'RS232'

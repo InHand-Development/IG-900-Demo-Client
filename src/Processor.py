@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
-
+#
+# Processor.py is the user start point - write your code here
+#
 import time
 import json
 import os
@@ -23,15 +25,12 @@ import logging
 from Logger import logger
 import multiprocessing as mp
 
-# this is the start point of the user application
+# This is the start point of the user application, tell user we are starting work
 logger.debug('STARTING DEMO APPLICATION IN PROCESSOR.PY')
-#wait a few seconds to allow the user to open the log file 
-time.sleep(5)
 
 INPY_APP_PATH = '/var/app/'
 
-
-# 处理主类
+# Processing main class
 class App(AppTemplate):
     logger.debug('*** Running App ***')
     def __init__(self, vendor_name, app_name):
@@ -42,18 +41,19 @@ class App(AppTemplate):
         self.dev_mgmt = None
         self.topic = ""
 
-        # 事件数据
+        # Initialize variables
+        # Event data
         self.evt_data_tb = None
-        # 实时数据
+        # Real-time data
         self.var_data_tb = None
-        # 历史数据
+        # historical data
         self.his_data_tb = None
-        # 事件历史上传数据
+        # Event history upload data
         self.evt_his_upload_data_tb = None
-        # 默认开启debug，暂时用。
+        # The debug is enabled by default and is enabled at debug level for the initial phase
         self.logger = logger
         self.logger._logger.setLevel(logging.DEBUG)
-        # 配置上传
+        # Configuration upload
         self.config_timer = libevent.Timer(
             self.base, self._config_timer_handler, userdata=None)
 
@@ -73,7 +73,6 @@ class App(AppTemplate):
             self.target_port = 1883
         if self.running_conf.has_option('REMOTE', 'username'):
             self.target_username = self.running_conf.get('REMOTE', 'username').strip()
-            #self.client_id = 'MQTT_FX_Client'
         else:
             self.target_username = None
         if self.running_conf.has_option('REMOTE', 'passwd'):
@@ -93,7 +92,7 @@ class App(AppTemplate):
         
         self.topic = self.running_conf.get('REMOTE', 'topic').strip()
 
-        logger.info("%s |%s |%s |%s |" % (self.target_host, self.target_port, self.target_username, self.target_passwd))
+        logger.info("Server Details : %s |%s |%s |%s |" % (self.target_host, self.target_port, self.target_username, self.target_passwd))
 
     def on_log(self, client, userdata, level, buf):
         logger.debug('*** Running on_log ***')
@@ -160,15 +159,7 @@ class App(AppTemplate):
         logger.debug('*** Running init ***')
         self._init_conf()
         self._init_mqclient()
-        # if self.configure.config.mode == "transform":
-        #     for device in self.configure.devices.values():
-        #         p = mp.Process(target=self.create_process, args=(device, ))
-        #         p.start()
-        #     self._end_init()
-        # else:
-
         self._norm_init()
-        # SSSself.config_timer.add(1)
         self.use_bridge = False
 
     def _preinit(self):
@@ -220,9 +211,10 @@ class App(AppTemplate):
         logger.debug('*** Running upload_config_var ***')
         if self.bridge_mqtt_is_ready():
             # self.upload_var_dict()
-            #  Serial network port configuration upload
+            # Serial network port configuration upload
             self.dev_mgmt.config_timer.add(1)
-            #  Start statistics task
+            
+            # Start statistics task
             # self.config_timer.add(5)
         else:
             logger.error("Upload configuration channel is not available.")
@@ -233,7 +225,6 @@ class App(AppTemplate):
         logger.debug('*** Running get_user_config ***')
         try:
             filename = INPY_APP_PATH + 'cfg/' + self.app_name + '/' + self.app_name + '.cfg'
-            # filename = INPY_APP_PATH + 'cfg/InModbus/InModbus.cfg'
             if os.path.exists(filename) is False:
                 filename = INPY_APP_PATH + self.app_name + '/config.yaml'
             self.configure = Configure()

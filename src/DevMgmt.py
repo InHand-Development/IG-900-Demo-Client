@@ -13,6 +13,7 @@ RS485_PORT = '/dev/ttyO3'
 
 class DevMgmt(object):
     def __init__(self, base, configure, mq_publish_callback):
+        logger.debug('*** Running DevMgmt ***')
 
         self.base = base
         self.configure = configure
@@ -28,6 +29,7 @@ class DevMgmt(object):
 
     # Initialize the device
     def init_devices(self):
+        logger.debug('*** Running init_devices ***')
         for name, device in self.configure.devices.items():
             if device.protocol == 'mbtcp':
                 self.init_mb_tcp_master(device=device)
@@ -47,6 +49,7 @@ class DevMgmt(object):
             logger.debug("Error %s- Code=%d", exc, exc.get_exception_code())
 
     def ini_mb_rtu_master(self, device):
+        logger.debug('*** Running init_devices ***')
         try:
             # Establish modbus rtu collection task
             params = device.param.split("-")
@@ -87,6 +90,7 @@ class DevMgmt(object):
             logger.debug("Error %s- Code=%d", exc, exc.get_exception_code())
 
     def _config_timer_handler(self, evt, userdata):
+        logger.debug('*** Running _config_timer_handler ***')
         topic = "InMB/site/info"
         if self.mq_publish_callback(topic, json.dumps(self.siteinfo), 1):
             logger.info("Send registered device information: %s" % self.siteinfo)
@@ -126,6 +130,7 @@ class DevMgmt(object):
 
     def register_serial_device(self, protocol, id, description, dev, speed=9600, databit=8, stopbit=1, parity="N",
                                xonxoff="off"):
+        logger.debug('*** Running register_serial_device ***')
         try:
             if dev == '/dev/ttyO1':
                 type = 'RS232'

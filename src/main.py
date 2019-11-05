@@ -35,7 +35,7 @@ def main(argv=sys.argv):
     app = App('Inhand', 'InModbusSimplify')
     app.init()
     app.run()
-    print("App InModbusSimplify was exit.")
+    print("App InModbusSimplify exited.")
 
 
 if __name__ == '__main__':

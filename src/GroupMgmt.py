@@ -158,7 +158,7 @@ class GroupExtHandle(object):
 
     def timer_handler(self, evt, userdata):
         timestamp = time.time()
-        logger.info("### Regularly collection polling: {0} | Group name: {1} | Timestamp: {2} ###".format(self.group.interval, self.group.name, timestamp))
+        logger.info("### Periodic collection polling: {0} | Group name: {1} | Timestamp: {2} ###".format(self.group.interval, self.group.name, timestamp))
                     # (self.group.interval, self.group.name, timestamp))
 
         values = {"timestamp": timestamp, "name": self.group.name, "values": dict()}
